@@ -7,7 +7,7 @@ const authRouter = require("./routers/auth");
 const dataRouter = require("./routers/data");
 
 //constants
-const PORT = 4000;
+const { PORT } = require("./config/constants");
 
 // Create an express app
 const app = express();

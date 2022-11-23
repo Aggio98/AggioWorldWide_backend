@@ -1,8 +1,7 @@
 const { Router } = require("express");
-const authMiddleware = require("../auth/middleware");
+//const authMiddleware = require("../auth/middleware");
 const User = require("../models").user;
 const Event = require("../models").event;
-const OrderTicket = require("../models").orderTicket;
 
 const router = new Router();
 
@@ -11,7 +10,12 @@ const router = new Router();
 router.get("/users/:id", async (req, res, next) => {
   const { id } = req.params;
   const user = await User.findByPk(id, {
-    include: Event,
+    include: {
+      model: Event,
+      through: {
+        attributes: ["name", "email", "userId", "eventId", "quantity"],
+      },
+    },
   });
 
   if (!user) {

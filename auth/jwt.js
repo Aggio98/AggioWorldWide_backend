@@ -1,14 +1,13 @@
 const jwt = require("jsonwebtoken");
 
-const secret =
-  process.env.JWT_SECRET || "e9rp^&^*&@9sejg)DSUA)jpfds8394jdsfn,m";
+const { jwtSecret } = require("../config/secrets");
 
 function toJWT(data) {
-  return jwt.sign(data, secret, { expiresIn: "2h" });
+  return jwt.sign(data, jwtSecret, { expiresIn: "2h" });
 }
 
 function toData(token) {
-  return jwt.verify(token, secret);
+  return jwt.verify(token, jwtSecret);
 }
 
 module.exports = { toJWT, toData };
