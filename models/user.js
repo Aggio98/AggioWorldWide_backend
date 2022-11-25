@@ -18,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   user.init(
     {
-      name: { type: DataTypes.STRING, allowNull: false },
-      email: { type: DataTypes.STRING, allowNull: false, unique: true },
+      name: DataTypes.STRING,
+      email: DataTypes.STRING,
       password: DataTypes.STRING,
-      isSpeaker: { type: DataTypes.STRING, allowNull: false },
+      isSpeaker: DataTypes.BOOLEAN,
     },
     {
       sequelize,
