@@ -20,6 +20,8 @@ module.exports = {
         speakerId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
+        place: "Caesars Superdome",
+        location: "New Orleans, United States",
       },
       {
         title: "Bear Grylls: Surviving in Harsh Conditions",
@@ -37,6 +39,8 @@ module.exports = {
         speakerId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
+        place: "Ziggo Dome",
+        location: "Amsterdam, Netherlands",
       },
       {
         title: "Tony Robbins: How to create the life you desire",
@@ -54,6 +58,8 @@ module.exports = {
         speakerId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
+        place: "Saitama Super Arena",
+        location: "Saitama, Japan",
       },
     ]);
   },
