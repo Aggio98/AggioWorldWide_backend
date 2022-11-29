@@ -20,16 +20,15 @@ module.exports = {
         speakerId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
-        place: "Caesars Superdome",
-        location: "New Orleans, United States",
+        address: "1500 Sugar Bowl Dr, New Orleans, LA 70112, United States",
       },
       {
         title: "Bear Grylls: Surviving in Harsh Conditions",
         imageUrl:
           "https://m.media-amazon.com/images/M/MV5BMTc4OTcwNjAxNV5BMl5BanBnXkFtZTcwMTA5MDA1Mg@@._V1_.jpg",
         continent: "Europe",
-        longitude: 4.9371732,
-        latitude: 52.3134245,
+        longitude: 4.9385,
+        latitude: 52.3139,
         price: 469.99,
         rating: 3.8,
         description:
@@ -39,18 +38,17 @@ module.exports = {
         speakerId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
-        place: "Ziggo Dome",
-        location: "Amsterdam, Netherlands",
+        address: "De Passage 100, 1101 AX Amsterdam",
       },
       {
         title: "Tony Robbins: How to create the life you desire",
         imageUrl:
           "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Tony_Robbins.jpg/440px-Tony_Robbins.jpg",
         continent: "Asia",
-        longitude: 35.8951,
-        latitude: 139.6307,
+        longitude: 139.6307,
+        latitude: 35.8951,
         price: 248.99,
-        rating: 4.9,
+        rating: 5,
         description:
           "Tony Robbins aims to have his audience to overcome any fear, breakthrough any limitation and create the life you've always wanted - but haven't yet reached - your journey starts here. He present on what people need to do now is very important to determine whether we just “survive” the rough times ahead, or whether we thrive despite them. The decisions you make today, determine your tomorrow. We want you to thrive – and there’s no investment as sure as the investment you make in YOURSELF and your future. ",
         date: "2022-12-20 18:23:27.82+00",
@@ -58,8 +56,7 @@ module.exports = {
         speakerId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
-        place: "Saitama Super Arena",
-        location: "Saitama, Japan",
+        address: "8 Shintoshin, Chuo Ward, Saitama, 330-9111, Japan",
       },
     ]);
   },

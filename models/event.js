@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       date: DataTypes.DATE,
       capacity: DataTypes.INTEGER,
       speakerId: DataTypes.INTEGER,
+      address: DataTypes.STRING,
     },
     {
       sequelize,
