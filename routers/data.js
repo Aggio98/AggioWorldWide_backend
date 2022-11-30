@@ -36,12 +36,30 @@ router.post("/:id/events", authMiddleware, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     const { isSpeaker } = req.user;
-    const { title, description, imageUrl } = req.body;
+    const {
+      title,
+      description,
+      imageUrl,
+      address,
+      price,
+      capacity,
+      date,
+      continent,
+      longitude,
+      latitude,
+    } = req.body;
 
     const event = await Event.create({
       title,
       description,
       imageUrl,
+      address,
+      price,
+      date,
+      capacity,
+      continent,
+      longitude,
+      latitude,
       speakerId: user.id,
     });
 
