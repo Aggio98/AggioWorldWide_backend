@@ -2,6 +2,7 @@ const { Router } = require("express");
 const authMiddleware = require("../auth/middleware");
 const User = require("../models").user;
 const Event = require("../models").event;
+const Ticket = require("../models").orderTicket;
 
 const router = new Router();
 
@@ -45,8 +46,6 @@ router.post("/:id/events", authMiddleware, async (req, res, next) => {
       capacity,
       date,
       continent,
-      longitude,
-      latitude,
     } = req.body;
 
     const event = await Event.create({
@@ -66,16 +65,14 @@ router.post("/:id/events", authMiddleware, async (req, res, next) => {
     if (isSpeaker === false) {
       return res.status(400).send({
         message:
-          "You do not have an Artist account so you can not auction your art",
+          "You do not have a Speaker account so you can not create an event",
       });
     }
-    return res.status(201).send({ message: "New auction created", event });
+    return res.status(201).send({ message: "Event created", event });
   } catch (e) {
     res.send(e);
   }
 });
-
-router.get("/");
 
 router.get("/details/:id", async (req, res, next) => {
   try {
@@ -88,5 +85,25 @@ router.get("/details/:id", async (req, res, next) => {
     }
   } catch (e) {
     next(e);
+  }
+});
+
+router.post("/orders/:id", async (req, res, next) => {
+  try {
+    const event = await Event.findByPk(req.params.id);
+    // const user = await User.findByPk(req.params.id);
+    const { name, email, quantity, userId } = req.body;
+
+    const ticket = await Ticket.create({
+      name,
+      email,
+      userId,
+      eventId: event.id,
+      quantity,
+    });
+    return res.status(201).send({ message: "ticket created", ticket });
+  } catch (e) {
+    console.log(e.message);
+    res.send(e);
   }
 });
