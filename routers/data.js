@@ -3,6 +3,7 @@ const authMiddleware = require("../auth/middleware");
 const User = require("../models").user;
 const Event = require("../models").event;
 const Ticket = require("../models").orderTicket;
+const nodemailer = require("nodemailer");
 
 const router = new Router();
 
@@ -31,12 +32,10 @@ router.get("/events", async (req, res, next) => {
   res.send(response);
 });
 
-module.exports = router;
-
 router.post("/:id/events", authMiddleware, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id);
-    const { isSpeaker } = req.user;
+    //const user = await User.findByPk(req.params.id);
+    const { isSpeaker, id } = req.user;
     const {
       title,
       description,
@@ -46,7 +45,10 @@ router.post("/:id/events", authMiddleware, async (req, res, next) => {
       capacity,
       date,
       continent,
+      longitude,
+      latitude,
     } = req.body;
+    console.log(req.body);
 
     const event = await Event.create({
       title,
@@ -59,8 +61,9 @@ router.post("/:id/events", authMiddleware, async (req, res, next) => {
       continent,
       longitude,
       latitude,
-      speakerId: user.id,
+      speakerId: id,
     });
+    console.log(event);
 
     if (isSpeaker === false) {
       return res.status(400).send({
@@ -68,8 +71,9 @@ router.post("/:id/events", authMiddleware, async (req, res, next) => {
           "You do not have a Speaker account so you can not create an event",
       });
     }
-    return res.status(201).send({ message: "Event created", event });
+    return res.status(200).send({ message: "Event created", event });
   } catch (e) {
+    console.log(e);
     res.send(e);
   }
 });
@@ -91,19 +95,44 @@ router.get("/details/:id", async (req, res, next) => {
 router.post("/orders/:id", async (req, res, next) => {
   try {
     const event = await Event.findByPk(req.params.id);
-    // const user = await User.findByPk(req.params.id);
-    const { name, email, quantity, userId } = req.body;
+    //const user = await User.findByPk(req.params.id);
+    console.log(req.body);
+    const { name, quantity, email, userId } = req.body;
 
     const ticket = await Ticket.create({
       name,
       email,
-      userId,
+      userId: userId,
       eventId: event.id,
       quantity,
     });
+    console.log(userId, "userId");
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: { user: "aggioDuthuit@gmail.com", pass: "gefbeqagoysjkmbi" },
+    });
+    console.log(transporter);
+    const mailOptions = {
+      from: "infoAggioWorldwide@gmail.com",
+      to: email,
+      subject: "Thank you for purchasing your event ticket!",
+      text: "Watch this video to see a clip of what is to come! https://www.youtube.com/watch?v=oHg5SJYRHA0&ab_channel=cotter548",
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+
     return res.status(201).send({ message: "ticket created", ticket });
   } catch (e) {
-    console.log(e.message);
+    console.log(e);
     res.send(e);
   }
 });
+
+module.exports = router;
